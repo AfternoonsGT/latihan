@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class DestinationController extends Controller
 {
-    public function index()
-    {
-        $destinations = Destination::all();
-        return view('pages.indexDestinasi', compact('destinations'));
-    }
+    // public function index()
+    // {
+    //     $destinations = Destination::all();
+    //     return view('pages.indexDestinasi', compact('destinations'));
+    // }
 
     public function show($id)
     {
@@ -28,7 +28,7 @@ class DestinationController extends Controller
     public function store(Request $request)
     {
         Destination::create($request->all());
-        return redirect('/destinations')->with('succes', 'Destination created succesfully.');
+        return redirect('/destinations')->with('success', 'Destination created succesfully.');
     }
 
     public function delete($id)
@@ -36,7 +36,7 @@ class DestinationController extends Controller
         $destination =Destination::find($id);
         if ($destination) {
             $destination->delete();
-            return redirect('/destinations')->with('succes', 'Destination deleted succesfully.');
+            return redirect('/destinations')->with('success', 'Destination deleted succesfully.');
         } else {
             return redirect('/destinations')->with('error', 'Destination not found.');
         }
@@ -55,5 +55,14 @@ class DestinationController extends Controller
         } else {
             return redirect('/destinations')->with('error', 'Destination not found');
         }
+    }
+    public function index(Request $request)
+    {
+        $keyword = $request->input('search');
+        if ($keyword != '') {
+            $destinations = Destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
+        } else {$destinations = Destination::orderby('id')->paginate(5);
+        }
+        return view('pages.indexDestinasi', compact('destinations'));
     }
 }

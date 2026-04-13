@@ -38,13 +38,14 @@
       </ul>
 
       <!-- RIGHT MENU: SEARCH + LOGIN -->
-      <div class="d-flex align-items-center">
-        <form class="d-flex me-2" role="search">
-          <input class="form-control rounded-pill me-2 px-3" type="search" placeholder="Cari destinasi...">
+     <div class="d-flex align-items-center">
+        <form action="/destinations" method="GET" class="d-flex me-2" role="search">
+          <input class="form-control rounded-pill me-2 px-3" type="search" placeholder="Search..." name="search" value="{{ request('search') }}">
           <button class="btn btn-primary rounded-pill px-3" type="submit">
             🔍
           </button>
         </form>
+
 
         <!-- LOGIN BUTTON -->
         <a href="#" class="btn btn-outline-primary rounded-pill px-4">
