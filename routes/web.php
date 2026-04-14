@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Destination;
 use App\Http\DestinationControllers;
@@ -42,28 +43,41 @@ Route::get("/detaildestinasi", function () {
     return view('pages.detaildestinasi', compact('destinasi'));
 });
 
-// Route::get("/indexDestinasi", function () {
-//     $destinations = Destination::all();
-//     return view('pages.indexDestinasi', compact('destinations'));
-// });
+Route::get("/indexDestinasi", function () {
+    $destinations = Destination::all();
+    return view('pages.indexDestinasi', compact('destinations'));
+});
 
-// Route::get("/detaildestinasi1/{id}", function ($id) {
-//     $destinations = Destination::find($id);
-//     return view('pages.detaildestinasi1', compact('destinations'));
-// });
+ Route::get("/detaildestinasi1/{id}", function ($id) {
+    $destinations = Destination::find($id);
+     return view('pages.detaildestinasi1', compact('destinations'));
+});
 
-Route::get(
+ Route::get(
     "/destinations",
     [DestinationController::class, 'index']
-);
+ );
 
-Route::get(
+ Route::get(
     "/detaildestinasi1/{id}",
     [DestinationController::class, 'show']
+ );
+
+ Route::get("/destinations/create", [DestinationController::class, 'create']);
+ Route::post("/destinations", [DestinationController::class, 'store']);
+ Route::delete('/destinations/{id}', [DestinationController::class, 'delete']);
+ Route::get('/destinations/{id}/edit', [DestinationController::class, 'edit'])->name('destination.edit');
+ Route::put('/destinations/{id}/update', [DestinationController::class, 'update'])->name('destination.update');
+
+
+Route::get(
+    "/user",
+    [UserController::class, 'index']
 );
 
-Route::get("/destinations/create", [DestinationController::class, 'create']);
-Route::post("/destinations", [DestinationController::class, 'store']);
-Route::delete('/destinations/{id}', [DestinationController::class, 'delete']);
-Route::get('/destinations/{id}/edit', [DestinationController::class, 'edit'])->name('destination.edit');
-Route::put('/destinations/{id}/update', [DestinationController::class, 'update'])->name('destination.update');
+Route::get("/user/create", [UserController::class, 'create']);
+Route::post("/user", [UserController::class, 'store']);
+Route::delete('/user/{id}', [UserController::class, 'delete']);
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+
