@@ -7,16 +7,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function show($id)
-    {
-        $user = User::find($id);
-        return view('pages.detaildestinasi1', compact('user'));
-    }
-
-
+    
     public function create()
         {
-            return view('pages.createUser');
+            return view('pages.users.createUser');
         }
 
     public function store(Request $request)
@@ -38,7 +32,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.editUser', compact('user'));
+        return view('pages.users.editUser', compact('user'));
     }
     public function update(Request $request, $id)
     {
@@ -57,6 +51,12 @@ class UserController extends Controller
             $user = User::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
         } else {$user = User::orderby('id')->paginate(5);
         }
-        return view('pages.indexUser', compact('user'));
+        return view('pages.users.indexUser', compact('user'));
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+        return view('pages.users.showUser', compact('user'));
     }
 }

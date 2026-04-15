@@ -16,13 +16,13 @@ class DestinationController extends Controller
     public function show($id)
     {
         $destinations = Destination::find($id);
-        return view('pages.detaildestinasi1', compact('destinations'));
+        return view('pages.destinations.detaildestinasi1', compact('destinations'));
     }
 
 
     public function create()
         {
-            return view('pages.createDestination');
+            return view('pages.destinations.createDestination');
         }
 
     public function store(Request $request)
@@ -44,7 +44,7 @@ class DestinationController extends Controller
     public function edit($id)
     {
         $destination = Destination::find($id);
-        return view('pages.editDestination', compact('destination'));
+        return view('pages.destinations.editDestination', compact('destination'));
     }
     public function update(Request $request, $id)
     {
@@ -63,6 +63,6 @@ class DestinationController extends Controller
             $destinations = Destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
         } else {$destinations = Destination::orderby('id')->paginate(5);
         }
-        return view('pages.indexDestinasi', compact('destinations'));
+        return view('pages.destinations.indexDestinasi', compact('destinations'));
     }
 }
