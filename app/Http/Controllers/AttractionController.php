@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attraction;
 use Illuminate\Http\Request;
+use App\Models\Destination;
 
 class AttractionController extends Controller
 {
@@ -20,12 +21,18 @@ class AttractionController extends Controller
     }
     public function create()
         {
-            return view('pages.attractions.createAttraction');
+            $destinations = Destination::all();
+            return view('pages.attractions.createAttraction', compact('destinations'));
         }
     public function store(Request $request)
     {
-        Attraction::create($request->all());
-        return redirect('/attractions')->with('success', 'Attraction created successfully.');
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable',
+            'destination_id' => 'required',
+        ]);
+        \App\Models\Attraction::create($validated);
+        return redirect()->route('attractions.index')->with('success', 'Attraction created successfully.');
     }
     public function delete($id)
     {
@@ -39,18 +46,22 @@ class AttractionController extends Controller
     }
     public function edit($id)
     {
-        $attraction = Attraction::find($id);
-        return view('pages.attractions.editAttraction', compact('attraction'));
+        $destinations = Destination::all();
+         $attraction = \App\Models\Attraction::find($id);
+        return view('pages.attractions.editAttraction', compact('attraction', 'destinations'));
     }
+        
     public function update(Request $request, $id)
     {
-        $attraction = Attraction::find($id);
-        if ($attraction) {
-            $attraction->update($request->all());
-            return redirect('/attractions')->with('success', 'Attraction updated successfully.');
-        } else {
-            return redirect('/attractions')->with('error', 'Attraction not found.');
-        }
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'destination_id' => 'required',
+        ]);
+        $attraction = \App\Models\Attraction::findorFail($id);
+        $attraction->update($validated);
+        return redirect()->route('attractions.index')->with('success', 'Attraction updated successfully.');
+        return redirect()->route('attractions.index')->with('error', 'Failed to update attraction.');
     }
     public function index(Request $request)
     {

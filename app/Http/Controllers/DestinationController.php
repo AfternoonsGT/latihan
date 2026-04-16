@@ -27,8 +27,16 @@ class DestinationController extends Controller
 
     public function store(Request $request)
     {
-        Destination::create($request->all());
-        return redirect('/destinations')->with('success', 'Destination created succesfully.');
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'location' => 'required',
+            'ticket_price' => 'required|numeric',
+            'working_hours' => 'required',
+            'working_days' => 'required',
+        ]);
+        \App\Models\Destination::create($validated);
+        return redirect()->route('destinations.index')->with('success', 'Destination created successfully.');
     }
 
     public function delete($id)
@@ -48,13 +56,18 @@ class DestinationController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $destination = Destination::find($id);
-        if ($destination) {
-            $destination->update($request->all());
-            return redirect('/destinations')->with('success', 'Destination Updated Succesfully');
-        } else {
-            return redirect('/destinations')->with('error', 'Destination not found');
-        }
+        $validated = $request->validate([
+           'name' => 'required',
+            'description' => 'nullable',
+            'location' => 'required',
+            'ticket_price' => 'required|numeric',
+            'working_hours' => 'required',
+            'working_days' => 'required',
+        ]);
+        $destination = \App\Models\Destination::findorFail($id);
+        $destination->update($validated);
+        return redirect()->route('destinations.index')->with('success', 'Destination updated successfully.');
+        return redirect()->route('destinations.index')->with('error', 'Failed to update destination.');
     }
     public function index(Request $request)
     {

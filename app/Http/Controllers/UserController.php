@@ -15,8 +15,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        User::create($request->all());
-        return redirect('/user')->with('success', 'User created succesfully.');
+         $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        \App\Models\User::create($validated);
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     public function delete($id)
@@ -36,13 +41,15 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        if ($user) {
-            $user->update($request->all());
-            return redirect('/user')->with('success', 'User Updated Succesfully');
-        } else {
-            return redirect('/user')->with('error', 'User not found');
-        }
+         $validated = $request->validate([
+           'name' => 'required|string|max:255',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        $user = \App\Models\User::findorFail($id);
+        $user->update($validated);
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('error', 'Failed to update user.');
     }
     public function index(Request $request)
     {

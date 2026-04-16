@@ -7,24 +7,18 @@
                 {{ session('success') }}
             </div>
         @endif
-<div class="d-flex align-items-center">
+
+        <div class="mb-3 p-3 bg-light rounded shadow-sm">
+            <h4 class="mb-0 fw-bold text-dark">📍 Destination List</h4>
+            <div class="d-flex align-items-center">
         <form action="/destinations" method="GET" class="d-flex me-2" role="search">
           <input class="form-control rounded-pill me-2 px-3" type="search" placeholder="Search..." name="search" value="{{ request('search') }}">
           <button class="btn btn-primary rounded-pill px-3" type="submit">
             🔍
           </button>
         </form>
-        <div class="mb-3 p-3 bg-light rounded shadow-sm">
-            <h4 class="mb-0 fw-bold text-dark">📍 Destination List</h4>
-            {{-- <form action="/destinations" method="GET">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="search..." name="search"
-                        value="{{ request('search') }}">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </div>
-            </form> --}}
-        </div>
-        
+            </div>
+        </div>     
             <a href="{{ route('destinations.create') }}" class="btn btn-primary shadow-sm px-4">
                 ➕ Add Destination
             </a>

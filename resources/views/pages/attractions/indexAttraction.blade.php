@@ -10,23 +10,25 @@
 
        <div class="mb-3 p-3 bg-light rounded shadow-sm">
             <h4 class="mb-0 fw-bold text-dark">📍 Attractions List</h4>
-            <p>This is the index page for attractions.</p>
-            {{-- <form action="/destinations" method="GET">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="search..." name="search"
-                        value="{{ request('search') }}">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </div>
-            </form> --}}
-        </div>
-         
-    <a href="{{ route('attractions.create') }}" class="btn btn-primary">➕Create New Attraction</a>
+            <div class="d-flex align-items-center">
+        <form action="{{ route('attractions.index') }}" method="GET" class="d-flex me-2" role="search">
+          <input class="form-control rounded-pill me-2 px-3" type="search" placeholder="Search..." name="search" value="{{ request('search') }}">
+          <button class="btn btn-primary rounded-pill px-3" type="submit">
+            🔍
+          </button>
+        </form>
+            </div>
+        </div>     
+            <a href="{{ route('attractions.create') }}" class="btn btn-primary shadow-sm px-4">
+                ➕ Add Attraction
+            </a>
             
             <table class="table table-striped-columns">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Destination</th>
                         <th>Description</th>
                         <th>Created At</th>
                         <th>Updated At</th>
@@ -38,6 +40,7 @@
                         <tr>
                             <td><a href="{{ route('attractions.show', $d->id) }}"> {{ $d->id }} </a></td>
                             <td>{{ $d->name }}</td>
+                            <td>{{ $d->destination->name }}</td>
                             <td>{{ $d->description }}</td>
                             <td>{{ $d->created_at }}</td>
                             <td>{{ $d->updated_at }}</td>
@@ -98,4 +101,5 @@
                 }, 1000);
             }
         </script>
+        
     @endpush

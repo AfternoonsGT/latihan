@@ -2,6 +2,7 @@
 @section('content')
     <h1>Attraction Detail</h1>
     <p>Name: {{ $attraction->name }}</p>
+    <P>Destination: {{ $attraction->destination->name }}</P>
     <p>Description: {{ $attraction->description }}</p>
     <br></br>
     <p>Created at: {{ $attraction->created_at }}</p>
