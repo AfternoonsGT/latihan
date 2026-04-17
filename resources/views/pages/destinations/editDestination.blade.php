@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-    <form action="{{ route('destinations.update', $destination->id) }}" method="post" class="form-floating">
+    <form action="{{ route('destinations.update', $destination->id) }}" method="post" class="form-floating" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -64,6 +64,17 @@
             @enderror
             <label for="floatingInput">Hari Operasional</label>
         </div>
+
+        <div class="mb-3">
+            <label for="floatingInput">Image</label>
+            <input type="file"  id="floatingInput" placeholder="Image" name="image" accept=".jpeg,.png,.jpg" class="form-control @error('image') is-invalid @enderror">
+            @error('image')
+            <div class="invalid-feedback">
+                {{ $message }}  
+            </div>
+            @enderror
+        </div>
+        
         <a href="{{ route('destinations.index') }}" class="btn btn-secondary px-4 py-2 rounded-pill shadow-sm me-2">Cancel</a>
         <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">Submit</button>
     </form>

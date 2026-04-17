@@ -54,12 +54,7 @@
         <div class="card card-custom shadow-lg">
 
             {{-- GAMBAR DESTINASI DENGAN SUPPORT URL ATAU FILE LOKAL --}}
-            <img src="{{ isset($destinasi['gambar']) && $destinasi['gambar'] != ''
-                ? (Str::startsWith($destinasi['gambar'], ['http://', 'https://'])
-                    ? $destinasi['gambar']
-                    : asset('images/' . $destinasi['gambar']))
-                : asset('images/default.jpg') }}"
-                alt="{{ $destinations['name'] ?? 'Destinasi' }}" class="destinasi-img">
+            <img src="{{asset('storage/image/' . $destinations->image)}}" alt="{{$destinations->name}}" class="img-fluid">
 
             {{-- HEADER --}}
             <div class="header-gradient text-center p-4">

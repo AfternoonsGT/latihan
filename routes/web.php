@@ -7,6 +7,8 @@ use App\Models\Destination;
 use App\Http\DestinationControllers;
 use App\Models\Attraction;
 use App\Http\Controllers\AttractionController;
+use App\Models\Review;
+use App\Http\Controllers\ReviewController;
 
 Route::get('/', function () {
     return view(view: 'welcome');
@@ -84,3 +86,5 @@ Route::prefix('attractions')->name('attractions.')->group(function () {
     Route::put('/{id}/update', [AttractionController::class, 'update'])->name('update');
     
 });
+
+Route::resource('reviews', \App\Http\Controllers\ReviewController::class);

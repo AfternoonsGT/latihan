@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Destination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DestinationController extends Controller
 {
@@ -34,7 +35,13 @@ class DestinationController extends Controller
             'ticket_price' => 'required|numeric',
             'working_hours' => 'required',
             'working_days' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+                $validated['image'] = basename($imagePath);
+            }
+        
         \App\Models\Destination::create($validated);
         return redirect()->route('destinations.index')->with('success', 'Destination created successfully.');
     }
@@ -63,8 +70,19 @@ class DestinationController extends Controller
             'ticket_price' => 'required|numeric',
             'working_hours' => 'required',
             'working_days' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $destination = \App\Models\Destination::findorFail($id);
+        if ($destination) {
+            if ($destination->image && $request->hasFile('image')) {
+                Storage::disk('public')->delete('images/' . $destination->image);
+            }
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+                $validated['image'] = basename($imagePath);
+            }
+
+        }
         $destination->update($validated);
         return redirect()->route('destinations.index')->with('success', 'Destination updated successfully.');
         return redirect()->route('destinations.index')->with('error', 'Failed to update destination.');

@@ -7,5 +7,5 @@
     <br></br>
     <p>Created at: {{ $user->created_at }}</p>
     <p>Updated at: {{ $user->updated_at }}</p>
-        <a href="{{ route('user.index') }}" class="btn btn-secondary px-4 py-2 rounded-pill shadow-sm me-2">Back</a>
+        <a href="{{ route('user.index') }}" class="btn btn-neon px-4 py-2 rounded-pill shadow-sm me-2">Back</a>
 @endsection
