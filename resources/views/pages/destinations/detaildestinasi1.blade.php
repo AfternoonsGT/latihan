@@ -54,7 +54,7 @@
         <div class="card card-custom shadow-lg">
 
             {{-- GAMBAR DESTINASI DENGAN SUPPORT URL ATAU FILE LOKAL --}}
-            <img src="{{asset('storage/image/' . $destinations->image)}}" alt="{{$destinations->name}}" class="img-fluid">
+            <img src="{{asset('storage/images/' . $destinations->image)}}" alt="{{$destinations->name}}" class="img-fluid">
 
             {{-- HEADER --}}
             <div class="header-gradient text-center p-4">

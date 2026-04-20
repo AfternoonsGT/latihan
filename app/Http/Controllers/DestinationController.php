@@ -91,8 +91,8 @@ class DestinationController extends Controller
     {
         $keyword = $request->input('search');
         if ($keyword != '') {
-            $destinations = Destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
-        } else {$destinations = Destination::orderby('id')->paginate(5);
+            $destinations = Destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(6);
+        } else {$destinations = Destination::orderby('id')->paginate(6);
         }
         return view('pages.destinations.indexDestinasi', compact('destinations'));
     }

@@ -47,6 +47,11 @@
           Login
         </a>
       </div>
+      <form action="{{route('logout')}}" method="POST" class="d-flex align-items-center ms-3">
+          @csrf
+          <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
+              Logout
+          </button>
 
     </div>
   </div>

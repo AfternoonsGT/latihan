@@ -39,7 +39,7 @@
                 <tbody>
                     @foreach ($destinations as $d)
                         <tr>
-                            <td><a href="detaildestinasi1/{{ $d->id }}"> {{ $d->id }} </a></td>
+                            <td> {{ $d->id }}   </td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->description }}</td>
                             <td>{{ $d->location }}</td>
@@ -60,6 +60,13 @@
             onclick="return confirm('Are you sure you want to delete {{ $d->name }}?')">
             🗑 Delete
         </button>
+
+        <a href="detaildestinasi1/{{ $d->id }}">
+            <button type="button" class="btn btn-info btn-sm px-3 shadow-sm rounded-3">
+                👁 View
+            </button>
+        </a>
+
     </form>
 </td>
                         </tr>
